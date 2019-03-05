@@ -1,0 +1,284 @@
+@extends('admin.layouts.sidebar')
+@section('content')
+    <div class="hk-pg-wrapper">
+        <!-- Breadcrumb -->
+    @include('admin.includes.breadcrumb')
+    <!-- /Breadcrumb -->
+        <!-- Container -->
+        <div class="container">
+
+            <!-- Title -->
+            <div class="hk-pg-header mb-10">
+                <div>
+                    <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i
+                                        data-feather="book"></i></span></span>Reviews</h4>
+                </div>
+            </div>
+            <!-- /Title -->
+            <!-- Row -->
+            <div class="row">
+                <div class="col-xl-12">
+                    <section class="hk-sec-wrapper">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="table-wrap">
+                                    <table id="reviewTbl" class="table table-hover w-100 pb-30">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Content</th>
+                                            <th>Rating</th>
+                                            <th>User Name</th>
+                                            <th>Product Name</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Content</th>
+                                            <th>Rating</th>
+                                            <th>User Name</th>
+                                            <th>Product Name</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <!-- /Row -->
+
+        </div>
+        <!-- /Container -->
+    @section('page-script')
+        <!-- jQuery -->
+            <script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>
+
+            <!-- Bootstrap Core JavaScript -->
+            <script src="{{asset('vendors/popper.js/dist/umd/popper.min.js')}}"></script>
+            <script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+
+            <!-- Slimscroll JavaScript -->
+            <script src="{{asset('dist/js/jquery.slimscroll.js')}}"></script>
+
+            <!-- Data Table JavaScript -->
+            <script src="{{asset('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+            <script src="{{asset('vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+            <script src="{{asset('vendors/datatables.net-dt/js/dataTables.dataTables.min.js')}}"></script>
+            <script src="{{asset('vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+            <script src="{{asset('vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js')}}"></script>
+            <script src="{{asset('vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+            <script src="{{asset('vendors/jszip/dist/jszip.min.js')}}"></script>
+            <script src="{{asset('vendors/pdfmake/build/pdfmake.min.js')}}"></script>
+            <script src="{{asset('vendors/pdfmake/build/vfs_fonts.js')}}"></script>
+            <script src="{{asset('vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+            <script src="{{asset('vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+            <script src="{{asset('vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+        <!-- <script src="{{asset('dist/js/dataTables-data.js')}}"></script> -->
+
+            <!-- FeatherIcons JavaScript -->
+            <script src="{{asset('dist/js/feather.min.js')}}"></script>
+            <!-- Fancy Dropdown JS -->
+            <script src="{{asset('dist/js/dropdown-bootstrap-extended.js')}}"></script>
+            <!-- SweetAlert JavaScript -->
+            <script src="{{asset('dist/js/sweetalert.min.js')}}"></script>
+            <!-- Toggles JavaScript -->
+            <script src="{{asset('vendors/jquery-toggles/toggles.min.js')}}"></script>
+            <script src="{{asset('dist/js/toggle-data.js')}}"></script>
+
+            <!-- Init JavaScript -->
+            <script src="{{asset('dist/js/init.js')}}"></script>
+            <!-- Custom JavaScript -->
+            <script type="text/javascript">
+                // my custom script
+                $(document).ready(function () {
+                    // Fetch Categories
+                    fetchReview();
+// Delete Function
+                    $(document).on('click', '.delete-button', function () {
+                        deleteReview($(this).attr('id'));
+                    });
+                    $(document).on('click', '.check-rev', function () {
+                        statusReview($(this).attr('id'));
+                    });
+                });
+
+                function fetchReview() {
+                    var token =  '{{ Session::get('access_token') }}';
+                    $("#reviewTbl").DataTable().destroy();
+                    $('#reviewTbl').DataTable({
+                        ajax: {
+                            url: "{{ url('/getreviews') }}",
+                            type: 'GET',
+                            dataType: 'JSON',
+                            headers: {"Authorization": 'Bearer ' + token},
+                            dataSrc: function (json) {
+                                console.log(json);
+                                return json;
+                            }
+                        },
+                        responsive: true,
+                        autoWidth: false,
+                        language: {
+                            search: "",
+                            searchPlaceholder: "Search"
+                        },
+                        sLengthMenu: "_MENU_items",
+                        columns: [
+                            {"data": "id"},
+                            {"data": "reviewContent"},
+                            {"data": "rating"},
+                            {"data": "firstName"},
+                            {"data": "productName"},
+                            {
+                                "data": null,
+                                "render": function(data, type, full, meta) {
+                                     return full["status"] == 1 ? "Active" : "In Active"
+                                }
+                            },
+
+                            {
+                                "data": null,
+                                "render": function (data, type, full, meta) {
+                                   
+ // (full['status'] == 1 ? $('.check-rev').prop('checked', true) : $('.check-rev').prop('checked', false))
+                                    return '<div class="d-flex">'+
+'<a href="javascript:void(0);" id="'+full.id+'" class="text-primary change-button check-rev mr-15">Change</a>'+
+                            // '"<label for="status" class="">Enable </label>'+
+                            // '<input class="check-rev" id="'+full.id+'" name="status" placeholder="status" value="" type="checkbox"></a>'+
+                            '<a href="javascript:void(0);" id="' + full.id +
+                            '" class="text-danger delete-button mr-15"><i class="fa fa-trash"><i></a>' +
+                             '</div>';
+
+                                }
+
+                            },
+                        ]
+                    });
+                }
+
+                function deleteReview(id) {
+                    var token =  '{{ Session::get('access_token') }}';
+                    var url = '{{ url("/api/review", "id") }}';
+                    url = url.replace('id', id);
+                    swal({
+                        title: "Are you sure?",
+                        text: "Once deleted, you will not be able to recover this Review!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,  
+                    })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                $.ajax({
+                                    url: url,
+                                    type: 'POST',
+                                    dataType: 'JSON',
+                                    headers: {"Authorization": 'Bearer ' + token},
+                                    data: {
+                                        '_method': 'delete'
+                                    },
+                                    success: function (data) {
+                                        console.log(data);
+                                        switch (data['result']) {
+                                            case 'success':
+                                                _isDirty = false;
+                                                swal({
+                                                    title: data['title'],
+                                                    text: data['message'],
+                                                    icon: data['result'],
+                                                    button: "OK",
+                                                    timer: 2000,
+                                                }).then(function () {
+                                                    fetchReview();
+                                                });
+                                                break;
+                                            case 'error':
+                                                
+                                                swal({
+                                                    title: data['title'],
+                                                    text: data['message'],
+                                                    icon: data['result'],
+                                                    button: "OK",
+                                                });
+                                                break;
+                                        }
+                                    },
+                                    error: function (xhr) {
+                                        
+                                    }
+                                });
+                            }
+                        });
+                }
+                function statusReview(id) {
+                    var token =  '{{ Session::get('access_token') }}';
+                    var url = '{{ url("/statusreviews", "id") }}';
+                    url = url.replace('id', id);
+                    // swal({
+                    //     title: "Are you sure?",
+                    //     text: "Status of this Review will be Changed!",
+                    //     icon: "warning",
+                    //     buttons: true,
+                    //     dangerMode: true,  
+                    // })
+                    //     .then((willUpdate) => {
+                    //         if (willUpdate) {
+                                $.ajax({
+                                    url: url,
+                                    type: 'POST',
+                                    dataType: 'JSON',
+                                    headers: {"Authorization": 'Bearer ' + token},
+                                    data: {
+                                        '_method': 'put',
+                                        "_token": "{{ csrf_token() }}"
+                                    },
+                                    success: function (data) {
+                                //         switch (data['result']) {
+                                // case 'success':
+                                // _isDirty = false;
+                                // swal({
+                                // title: data['title'],
+                                // text: data['message'],
+                                // icon: data['result'],
+                                // button: "OK",
+                                // timer: 2000,
+                                // }).then(function() {
+                                fetchReview();
+                                // });
+                                // break;
+                                // case 'error':
+                                // swal({
+                                // title: data['title'],
+                                // text: data['message'],
+                                // icon: data['result'],
+                                // button: "OK",
+                                // });
+                                // break;
+                                // }
+
+                                    },
+                                    error: function (xhr) {
+                                        
+                                    }
+                                });
+                        //     }
+                        // });
+                }
+            </script>
+    @stop
+    <!-- Footer -->
+        <div class="hk-footer-wrap container">
+            @include('admin.includes.footer')
+        </div>
+        <!-- /Footer -->
+    </div>
+@stop

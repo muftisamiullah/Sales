@@ -1,0 +1,14 @@
+.proceed:hover{
+    background-color:#666 !important;
+    border:none;
+    cursor: no-drop;
+}
+.gallery-control .carousel{
+    visibility: visible; overflow: hidden; position: relative; z-index: 2; left: 0px; width: 240px;
+}
+.gallery-control .carousel ul{
+    margin: 0px; padding: 0px; position: relative; list-style: none; z-index: 1; width: 960px; left: -240px;
+}
+.gallery-control .carousel ul li{
+    overflow: hidden; float: left; width: 80px; height: 70px;
+}

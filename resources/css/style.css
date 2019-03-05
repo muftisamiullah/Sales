@@ -1,0 +1,220 @@
+/* css by Sami Ullah */
+#myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 100px; /* Place the button at the bottom of the page */
+    right: 20px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #2F4F4F; /* Set a background color */
+    color: #FAEBD7; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 6px; /* Some padding */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 10px; /* Increase font size */
+  }
+  
+  #myBtn:hover {
+    background-color: #778899; /* Add a dark-grey background on hover */
+  }
+
+  .navstar{
+    background-color: #243238;
+  }
+  .navbar-light .navbar-nav .active>.nav-link{
+    color:white;
+  }
+
+  .navbar-light .navbar-nav .nav-link {
+    color: white;
+    /* padding-left:20px; */
+  }
+  .row1{
+      background-color: #27292b;
+      color: white;
+  }
+  .row2{
+      background-color: black;
+      color: wheat;
+  }
+  .fli{
+    /* color: black; */
+    /* font: 13px 'Droid Serif', serif; */
+    /* text-align: center; */
+    /* padding-right: 25px; */
+    color: white;   
+}
+.fli:hover{
+  color: e6ffff;
+}
+.footdiv{
+    color: white;
+background-color: #243238;
+}
+.uls {
+    list-style-type: none;
+    padding:0px 15px;
+    color: white;
+  }
+  .head5{
+    color: white;
+}
+.fp{
+    font: 14px 'Droid Serif', serif;
+
+    display: inline;
+    float:left;
+}
+.fp1{
+    float:center;
+}
+.row-footer{
+  background-color: #2f2f2f;
+}
+.fab{
+  color: white;
+}
+@media (max-width: 716px) { 
+  .head2{
+    font-size: 12px !important;
+  }
+  .sizing{
+    /* size: 20px !important; */
+    height:30px !important;
+    width:50px !important;
+    font-size: 8px;
+  }
+ } 
+
+ .colored{
+   color: black;
+ }
+ .navbar-brand{
+   color: white !important;
+ }
+/*----------------------------------------------------afiq css start-----------------------------------------------------*/
+
+.product-btn-add {
+    background-color: #3ec7c2;
+    color: #fff;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    border: none;
+    text-align: center;
+    vertical-align: middle !important;
+}
+.product-btn{
+	border-radius: 50%;
+	height: 32px;
+	width: 32px;
+	border: none;
+	text-align: center;
+
+}
+.html-content-pro{
+	padding-top: 100px;
+	min-height: 369px;
+}
+
+.html-content-pro1{
+	padding-top: 130px;
+	padding-left:20px;
+	min-height: 369px;
+	margin: auto;
+}
+.html-content-pro .svg{
+/*	border: 2px solid #fff;*/
+    /*padding: 17px;*/
+    border-radius: 50%;
+    display: inline-block;
+    width: 78px;
+    height: 78px;
+}
+.html-title{
+	font-size: 36px;
+    color: #3ec7c2;
+    font-weight: 300;
+}
+
+.html-description{
+	font-size: 24px;
+    color: #fff;
+    margin-top: 7px;
+    font-weight: 600;
+}
+/*.breadcrumbs-v1{
+	padding-top: 100px;
+	padding-right: 100px;
+    position: relative;
+    background: url(img/pro1.png);
+    background-size: cover;
+    height: 300px;
+    width: 100%;
+    margin: auto;
+}
+.breadcrumbs-v2{
+	padding-top: 100px;
+	padding-right: 100px;
+    position: relative;
+    background: url(img/pro2.png);
+    background-size: cover;
+    height: 300px;
+    width: 100%;
+    margin: auto;
+}*/
+.btn1 {
+    background: #3ec7c2;
+    color: #fff;
+    text-transform: uppercase;
+    padding: 12px 25px;
+    font-size: 12px;
+    position: relative;
+    margin-top: 11px;
+}
+@media (max-width: 768px){
+	.box-content img{
+		padding-right: 10px !important;
+		text-align: center !important;
+	}
+}
+
+/*----------------------------------------------------afiq css end-----------------------------------------------------*/
+
+
+
+
+/* ...............................................css by basit <start>......................................................... */
+
+.carousel-indicators li {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+  }
+
+  .modal-backdrop {
+    z-index: 1040 !important;
+}
+.modal-dialog {
+    margin: 2px auto;
+    z-index: 1100 !important;
+}
+
+
+/*Global*/
+
+.btn-square {
+  border-radius: 0 !important;
+}
+.height{
+ line-height:29px !important;
+}
+.breadcrumb{
+    background-color:white !important;
+    margin:0px !important;
+    
+}
+ /* .....................................................css by basit <end>.................................................... */
+
+ 
